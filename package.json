@@ -20,7 +20,7 @@
     "build": "tsc -p tsconfig.json",
     "prepare": "npm run build",
     "prepack": "npm run build",
-    "test": "npm run build && node --test dist/**/*.test.js",
+    "test": "npm run build && node --test dist/*.test.js",
     "check": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
