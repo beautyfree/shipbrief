@@ -1,0 +1,12 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">shipbrief logo</title>
+  <desc id="desc">A compact mark with a paper brief, commit nodes, and delivery arrow.</desc>
+  <rect width="256" height="256" rx="56" fill="#0D1117"/>
+  <path d="M72 62h82l30 30v102H72V62Z" fill="#F8FAFC"/>
+  <path d="M154 62v30h30" fill="#CBD5E1"/>
+  <path d="M92 112h72M92 136h72M92 160h48" stroke="#0D1117" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="72" cy="62" r="14" fill="#22C55E"/>
+  <circle cx="184" cy="194" r="14" fill="#38BDF8"/>
+  <path d="M82 72l92 112" stroke="#22C55E" stroke-width="10" stroke-linecap="round"/>
+  <path d="M169 165l15 29-31-9" fill="#38BDF8"/>
+</svg>

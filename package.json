@@ -10,6 +10,8 @@
     "bin",
     "dist",
     "!dist/**/*.test.*",
+    "assets",
+    "docs",
     "templates",
     "skills",
     "examples",
