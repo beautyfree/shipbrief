@@ -1,7 +1,7 @@
 {
   "name": "shipbrief",
   "version": "0.1.0",
-  "description": "Read-only daily commit digests for local git repositories, with Telegram topic delivery and agent-friendly JSON.",
+  "description": "AXI-style read-only daily commit digests for local git repositories, with TOON output and Telegram topic delivery.",
   "type": "module",
   "bin": {
     "shipbrief": "./bin/shipbrief.js"

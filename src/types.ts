@@ -4,6 +4,8 @@ export interface ParsedArgs extends Record<string, ArgValue | string[] | undefin
   _: string[];
 }
 
+export type OutputFormat = 'toon' | 'json' | 'markdown';
+
 export interface TelegramConfig {
   botTokenEnv: string;
   chatIdEnv: string;

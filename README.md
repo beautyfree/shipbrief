@@ -1,8 +1,8 @@
 # shipbrief
 
-Read-only daily commit digests for local git repositories.
+AXI-style read-only daily commit digests for local git repositories.
 
-`shipbrief` scans configured project roots, collects commits with `git log`, renders a project-grouped report, and can send text to a Telegram group topic through the Bot API. It is built for Codex, Claude Code, Cursor, OpenCode, and other agents that should analyze commit data without crawling your whole machine themselves.
+`shipbrief` scans configured project roots, collects commits with `git log`, emits compact TOON for agents, renders Markdown for humans, and can send text to a Telegram group topic through the Bot API. It is built for Codex, Claude Code, Cursor, OpenCode, and other agents that should analyze commit data without crawling your whole machine themselves.
 
 ## Install
 
@@ -42,7 +42,7 @@ launchctl setenv TELEGRAM_COMMIT_REPORT_THREAD_ID "87"
 ## Usage
 
 ```bash
-shipbrief run --yesterday --json
+shipbrief run --yesterday
 ```
 
 Pipeline mode:
@@ -55,9 +55,17 @@ shipbrief send --input report.txt
 
 Recommended agent flow:
 
-1. Run `shipbrief run --yesterday --json`.
-2. Ask the agent to summarize the JSON into a readable follow-up in the user's language.
+1. Run `shipbrief run --yesterday` for compact TOON.
+2. Ask the agent to summarize the TOON into a readable follow-up in the user's language.
 3. Send the agent-written follow-up to Telegram.
+
+Formats:
+
+```bash
+shipbrief run --yesterday                 # TOON, default for agents
+shipbrief run --yesterday --format json   # complete machine-readable JSON
+shipbrief run --yesterday --format markdown
+```
 
 ## Agent Templates
 
