@@ -56,6 +56,11 @@ async function run(argv: string[]): Promise<void> {
     return;
   }
 
+  if (command === 'prompt') {
+    process.stdout.write(agentSetupPrompt());
+    return;
+  }
+
   const rootArgs = asArray(args.root);
   if (rootArgs.length) config.roots = rootArgs.map(String);
   const period = resolvePeriod({
@@ -137,7 +142,7 @@ async function run(argv: string[]): Promise<void> {
     return;
   }
 
-  process.stdout.write(`${renderErrorToon(`unknown command ${command}`, 'valid commands: home, init, doctor, collect, render, send, check, deliver, run, help')}\n`);
+  process.stdout.write(`${renderErrorToon(`unknown command ${command}`, 'valid commands: home, init, doctor, prompt, collect, render, send, check, deliver, run, help')}\n`);
   process.exitCode = 2;
 }
 
@@ -193,7 +198,32 @@ function envWithLaunchctl(config: ShipbriefConfig): NodeJS.ProcessEnv {
 }
 
 function help() {
-  return `shipbrief - read-only local git commit digests\n\nUsage:\n  shipbrief\n  shipbrief init [--config ~/.shipbrief/config.json]\n  shipbrief doctor\n  shipbrief collect [--today|--yesterday|--date YYYY-MM-DD|--since X --until Y] [--root DIR] [--format toon|json|markdown] [--output file]\n  shipbrief render --input file.json [--output file.txt]\n  shipbrief check --html report.html\n  shipbrief deliver --provider telegram --html report.html\n  shipbrief run [--today|--yesterday|--date YYYY-MM-DD] [--format toon|json|markdown] [--send] [--full]\n\nDefaults:\n  output format: toon\n  roots: ~/Projects when it exists\n  config: ./shipbrief.config.json, then ~/.shipbrief/config.json\n\nSafety:\n  shipbrief only reads directories and runs git rev-parse/git config/git log. It never fetches, pulls, pushes, checks out, resets, or edits repositories.\n`;
+  return `shipbrief - read-only local git commit digests\n\nUsage:\n  shipbrief\n  shipbrief init [--config ~/.shipbrief/config.json]\n  shipbrief doctor\n  shipbrief prompt\n  shipbrief collect [--today|--yesterday|--date YYYY-MM-DD|--since X --until Y] [--root DIR] [--format toon|json|markdown] [--output file]\n  shipbrief render --input file.json [--output file.txt]\n  shipbrief check --html report.html\n  shipbrief deliver --provider telegram --html report.html\n  shipbrief run [--today|--yesterday|--date YYYY-MM-DD] [--format toon|json|markdown] [--send] [--full]\n\nDefaults:\n  output format: toon\n  roots: ~/Projects when it exists\n  config: ./shipbrief.config.json, then ~/.shipbrief/config.json\n\nSafety:\n  shipbrief only reads directories and runs git rev-parse/git config/git log. It never fetches, pulls, pushes, checks out, resets, or edits repositories.\n`;
+}
+
+function agentSetupPrompt(): string {
+  return `Install shipbrief for me.
+
+Goal:
+- create a daily commit briefing from my local git projects;
+- keep shipbrief as the only collector;
+- make an agent write the final human summary;
+- prepare delivery later through Telegram, Slack, email, or webhook.
+
+Steps:
+1. Run: npm install -g shipbrief
+2. Run: shipbrief init
+3. Detect my normal projects directory and put it in ~/.shipbrief/config.json roots.
+4. Run: shipbrief doctor
+5. Create a daily evening automation:
+   - run: shipbrief run --today
+   - read the TOON output
+   - write a concise human brief in my language
+   - group by project
+   - keep commit hashes as links when URLs exist
+   - save the final report
+6. Do not mutate any repositories.
+`;
 }
 
 function latestReport(outputDir: string): string | undefined {
@@ -215,6 +245,7 @@ function validateArgs(command: string, args: Record<string, unknown>): void {
     help: [],
     init: [],
     doctor: [],
+    prompt: [],
     collect: ['today', 'yesterday', 'date', 'since', 'until', 'label', 'root', 'output', 'format', 'json', 'full'],
     render: ['input', 'output'],
     send: ['input'],

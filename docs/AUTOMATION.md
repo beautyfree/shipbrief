@@ -5,13 +5,13 @@
 ## Minimal Scheduler Command
 
 ```bash
-npx -y -p shipbrief shipbrief run --today
+shipbrief run --today
 ```
 
 Use `--yesterday` for morning reports:
 
 ```bash
-npx -y -p shipbrief shipbrief run --yesterday
+shipbrief run --yesterday
 ```
 
 ## Agent Prompt
@@ -28,8 +28,8 @@ Run shipbrief check, then shipbrief deliver.
 ## Telegram Delivery
 
 ```bash
-npx -y -p shipbrief shipbrief check --html report.html
-npx -y -p shipbrief shipbrief deliver --provider telegram --html report.html
+shipbrief check --html report.html
+shipbrief deliver --provider telegram --html report.html
 ```
 
 Required environment variables:
