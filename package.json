@@ -1,0 +1,46 @@
+{
+  "name": "shipbrief",
+  "version": "0.1.0",
+  "description": "Read-only daily commit digests for local git repositories, with Telegram topic delivery and agent-friendly JSON.",
+  "type": "module",
+  "bin": {
+    "shipbrief": "./bin/shipbrief.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "!dist/**/*.test.*",
+    "templates",
+    "examples",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepack": "npm run build",
+    "test": "npm run build && node --test dist/**/*.test.js",
+    "check": "tsc -p tsconfig.json --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "git",
+    "commits",
+    "telegram",
+    "digest",
+    "codex",
+    "claude",
+    "agent"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beautyfree/shipbrief.git"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.0"
+  },
+  "license": "MIT"
+}

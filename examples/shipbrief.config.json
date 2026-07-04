@@ -1,0 +1,24 @@
+{
+  "roots": ["/Users/devall/Projects"],
+  "exclude": [
+    "node_modules",
+    ".git",
+    ".cache",
+    ".npm",
+    ".pnpm-store",
+    ".cargo",
+    ".rustup",
+    "Library",
+    ".Trash",
+    ".codex/plugins/cache",
+    ".codex/cache"
+  ],
+  "maxDepth": 8,
+  "includeNested": false,
+  "outputDir": "/Users/devall/Documents/Codex/commit-reports",
+  "telegram": {
+    "botTokenEnv": "TELEGRAM_BOT_TOKEN",
+    "chatIdEnv": "TELEGRAM_COMMIT_REPORT_CHAT_ID",
+    "threadIdEnv": "TELEGRAM_COMMIT_REPORT_THREAD_ID"
+  }
+}
