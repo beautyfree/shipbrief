@@ -5,7 +5,7 @@ Run daily commit follow-up through `shipbrief`, then write a human follow-up.
 1. Execute:
 
 ```bash
-npx -y shipbrief run --today
+npx -y -p shipbrief shipbrief run --today
 ```
 
 2. Read the TOON result printed by the command.
@@ -22,8 +22,8 @@ npx -y shipbrief run --today
 6. Validate and deliver through Shipbrief, not direct Bot API calls:
 
 ```bash
-npx -y shipbrief check --html report.html
-npx -y shipbrief deliver --provider telegram --html report.html
+npx -y -p shipbrief shipbrief check --html report.html
+npx -y -p shipbrief shipbrief deliver --provider telegram --html report.html
 ```
 
 7. If sending failed, report the structured error and point to the generated HTML report.
