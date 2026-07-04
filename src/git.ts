@@ -89,10 +89,15 @@ export function collectCommits({ config, period }: { config: ShipbriefConfig; pe
       .map((record) => parseCommit(record, sep1));
 
     if (commits.length) {
+      const remoteUrl = readRemoteUrl(repo);
       projects.push({
         name: path.basename(repo),
         path: repo,
-        commits
+        remoteUrl,
+        commits: commits.map((commit) => ({
+          ...commit,
+          url: remoteUrl ? `${remoteUrl}/commit/${commit.hash}` : undefined
+        }))
       });
     }
   }
@@ -116,5 +121,47 @@ function parseCommit(record: string, sep: string): CommitInfo {
     .map((line) => line.trim())
     .filter((line) => /^(Refs|Fixes|Tests|Risk|Follow-up|Codex):/i.test(line));
   const codex = /(^|\n)Codex:/i.test(body) || /codex/i.test(`${authorName || ''} ${authorEmail || ''}`);
-  return { hash, shortHash, date, authorName, authorEmail, refs, subject, body, notes, codex };
+  const description = body
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line && !/^(Refs|Fixes|Tests|Risk|Follow-up|Codex):/i.test(line))
+    .join('\n');
+  return {
+    hash,
+    shortHash,
+    date,
+    localTime: formatLocalTime(date),
+    authorName,
+    authorEmail,
+    refs,
+    subject,
+    body,
+    description,
+    notes,
+    codex
+  };
+}
+
+function readRemoteUrl(repo: string): string | undefined {
+  try {
+    return normalizeRemoteUrl(git(['config', '--get', 'remote.origin.url'], repo).trim());
+  } catch {
+    return undefined;
+  }
+}
+
+function normalizeRemoteUrl(remote: string): string | undefined {
+  if (!remote) return undefined;
+  const withoutGit = remote.replace(/\.git$/, '');
+  if (/^https?:\/\//.test(withoutGit)) return withoutGit;
+  const ssh = withoutGit.match(/^git@([^:]+):(.+)$/);
+  if (ssh) return `https://${ssh[1]}/${ssh[2]}`;
+  const sshProtocol = withoutGit.match(/^ssh:\/\/git@([^/]+)\/(.+)$/);
+  if (sshProtocol) return `https://${sshProtocol[1]}/${sshProtocol[2]}`;
+  return undefined;
+}
+
+function formatLocalTime(date: string): string {
+  const match = date.match(/T(\d{2}:\d{2})(?::\d{2})?/);
+  return match ? match[1] : date;
 }

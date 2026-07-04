@@ -1,10 +1,12 @@
 import type { ShipbriefReport } from './types.js';
 
 export function renderText(report: ShipbriefReport): string {
-  const lines = [];
-  lines.push(`Shiplog за ${report.period.label}`);
-  lines.push(`Период: ${report.period.since} — ${report.period.until}`);
-  lines.push(`Repo scanned: ${report.repoCount}`);
+  const lines: string[] = [];
+  lines.push(`# Shipbrief за ${report.period.label}`);
+  lines.push('');
+  lines.push(`Период: ${formatPeriod(report.period.since, report.period.until)}`);
+  lines.push(`Часовой пояс: ${formatTimeZone(report.period.since)}`);
+  lines.push(`Просканировано repo: ${report.repoCount}`);
   lines.push(`Проектов с активностью: ${report.projectCount}`);
   lines.push(`Коммитов: ${report.commitCount}`);
   lines.push('');
@@ -16,12 +18,17 @@ export function renderText(report: ShipbriefReport): string {
 
   for (const project of report.projects) {
     lines.push(`## ${project.name}`);
-    lines.push(project.path);
+    lines.push(project.remoteUrl ? `${project.path} (${project.remoteUrl})` : project.path);
     for (const commit of project.commits) {
       const ref = commit.refs ? ` [${commit.refs}]` : '';
       const codex = commit.codex ? ' [Codex]' : '';
-      lines.push(`- ${commit.shortHash} ${commit.date} ${commit.authorName}${ref}${codex}`);
+      const hash = commit.url ? `[${commit.shortHash}](${commit.url})` : commit.shortHash;
+      lines.push(`- ${commit.localTime} ${hash} ${commit.authorName}${ref}${codex}`);
       lines.push(`  ${commit.subject || '(no subject)'}`);
+      if (commit.description) {
+        lines.push('  Описание:');
+        for (const line of commit.description.split('\n').slice(0, 8)) lines.push(`  ${line}`);
+      }
       for (const note of commit.notes) lines.push(`  ${note}`);
     }
     lines.push('');
@@ -41,4 +48,20 @@ export function renderText(report: ShipbriefReport): string {
   }
 
   return `${lines.join('\n').trim()}\n`;
+}
+
+function formatPeriod(since: string, until: string): string {
+  return `${formatDateTime(since)} — ${formatDateTime(until)}`;
+}
+
+function formatDateTime(value: string): string {
+  const match = value.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  if (!match) return value;
+  const [, year, month, day, hour, minute] = match;
+  return `${day}.${month}.${year} ${hour}:${minute}`;
+}
+
+function formatTimeZone(value: string): string {
+  const match = value.match(/([+-]\d{2}:\d{2})$/);
+  return match ? `UTC${match[1]}` : 'local';
 }

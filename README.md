@@ -2,7 +2,7 @@
 
 Read-only daily commit digests for local git repositories.
 
-`shipbrief` scans configured project roots, collects commits with `git log`, renders a project-grouped report, and can send it to a Telegram group topic through the Bot API. It is built for Codex, Claude Code, Cursor, OpenCode, and other agents that should analyze commit data without crawling your whole machine themselves.
+`shipbrief` scans configured project roots, collects commits with `git log`, renders a project-grouped report, and can send text to a Telegram group topic through the Bot API. It is built for Codex, Claude Code, Cursor, OpenCode, and other agents that should analyze commit data without crawling your whole machine themselves.
 
 ## Install
 
@@ -42,7 +42,7 @@ launchctl setenv TELEGRAM_COMMIT_REPORT_THREAD_ID "87"
 ## Usage
 
 ```bash
-shipbrief run --yesterday --send
+shipbrief run --yesterday --json
 ```
 
 Pipeline mode:
@@ -52,6 +52,12 @@ shipbrief collect --yesterday --output commits.json
 shipbrief render --input commits.json --output report.txt
 shipbrief send --input report.txt
 ```
+
+Recommended agent flow:
+
+1. Run `shipbrief run --yesterday --json`.
+2. Ask the agent to summarize the JSON into a readable follow-up in the user's language.
+3. Send the agent-written follow-up to Telegram.
 
 ## Agent Templates
 
@@ -64,6 +70,7 @@ shipbrief send --input report.txt
 `shipbrief` only reads directories and runs:
 
 - `git rev-parse --show-toplevel`
+- `git config --get remote.origin.url`
 - `git log --all ...`
 
 It never fetches, pulls, pushes, checks out, resets, edits files inside repositories, or scans outside configured roots.

@@ -1,17 +1,20 @@
 # Codex Automation Prompt
 
-Run daily commit follow-up through `shipbrief`.
+Run daily commit follow-up through `shipbrief`, then write a human follow-up.
 
 1. Execute:
 
 ```bash
-shipbrief run --yesterday --send --json
+/Users/devall/.hermes/node/bin/shipbrief run --yesterday --json
 ```
 
 2. Read the JSON result printed by the command.
-3. If sending failed, report the error and point to the generated text report.
-4. Do not run `git fetch`, `git pull`, `git push`, `git checkout`, `git reset`, or any command that changes repositories.
-5. If extra analysis is requested, analyze only the generated JSON/text report and keep project grouping intact.
+3. Analyze `report.projects[].commits[]` and write a concise human report in the user's language.
+4. Group by project and describe what changed, not just commit subjects. Use commit body/description and notes when present.
+5. Keep links to commits when `commit.url` exists.
+6. Send the final report to Telegram only after the agent summary is written.
+7. If sending failed, report the error and point to the generated text report.
+8. Do not run `git fetch`, `git pull`, `git push`, `git checkout`, `git reset`, or any command that changes repositories.
 
 Required environment variables:
 - `TELEGRAM_BOT_TOKEN`
