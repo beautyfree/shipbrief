@@ -1,47 +1,23 @@
 <svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">shipbrief logo</title>
-  <desc id="desc">Three stacked briefing layers split by a clean delivery path.</desc>
+  <desc id="desc">Minimal git graph turning into briefing blocks.</desc>
   <defs>
-    <linearGradient id="top-left" x1="55" y1="54" x2="166" y2="123" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0EA5E9"/>
-      <stop offset="1" stop-color="#10B981"/>
-    </linearGradient>
-    <linearGradient id="top-right" x1="142" y1="78" x2="218" y2="128" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#22C55E"/>
-      <stop offset="1" stop-color="#059669"/>
-    </linearGradient>
-    <linearGradient id="mid-left" x1="43" y1="106" x2="154" y2="175" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0EA5E9"/>
-      <stop offset="1" stop-color="#06B6D4"/>
-    </linearGradient>
-    <linearGradient id="mid-right" x1="143" y1="125" x2="218" y2="176" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#06B6D4"/>
-      <stop offset="1" stop-color="#0284C7"/>
-    </linearGradient>
-    <linearGradient id="base-left" x1="43" y1="156" x2="153" y2="226" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#2563EB"/>
-      <stop offset="1" stop-color="#1D4ED8"/>
-    </linearGradient>
-    <linearGradient id="base-right" x1="143" y1="176" x2="219" y2="226" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#2563EB"/>
-      <stop offset="1" stop-color="#4F46E5"/>
-    </linearGradient>
-    <filter id="drop" x="20" y="22" width="216" height="220" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="15" stdDeviation="10" flood-color="#0F172A" flood-opacity="0.18"/>
-    </filter>
-    <filter id="lift" x="28" y="26" width="200" height="204" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#0F172A" flood-opacity="0.20"/>
+    <filter id="shadow" x="27" y="31" width="202" height="199" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.18"/>
     </filter>
   </defs>
 
-  <g filter="url(#drop)">
-    <path filter="url(#lift)" fill="url(#top-left)" d="M53 79C53 72.9 56.3 67.3 61.7 64.4L118.3 33.7C124.3 30.4 131.6 30.4 137.7 33.7L184.6 59.1C191.7 62.9 191.7 73.1 184.6 76.9L150.1 95.6C143.9 99 139.3 104.7 137.5 111.5C136.4 115.8 132.5 118.8 128 118.8H62.9C57.4 118.8 53 114.4 53 108.9V79Z"/>
-    <path filter="url(#lift)" fill="url(#top-right)" d="M167.5 96.1L196.3 80.5C202.7 77 210.6 81.6 210.6 88.9V114.8C210.6 120.9 207.3 126.5 201.9 129.4L167.4 148.1C161.1 151.5 153.4 146.9 153.4 139.7V122.7C153.4 111.6 157.8 101.4 167.5 96.1Z"/>
+  <g filter="url(#shadow)">
+    <path d="M83 62H173C182.9 62 191 70.1 191 80V176C191 185.9 182.9 194 173 194H83C73.1 194 65 185.9 65 176V80C65 70.1 73.1 62 83 62Z" fill="#0F172A"/>
+    <path d="M93 96H163" stroke="#F8FAFC" stroke-width="13" stroke-linecap="round"/>
+    <path d="M126 128H163" stroke="#F8FAFC" stroke-width="13" stroke-linecap="round"/>
+    <path d="M126 160H163" stroke="#F8FAFC" stroke-width="13" stroke-linecap="round"/>
 
-    <path filter="url(#lift)" fill="url(#mid-left)" d="M53 124.3C53 118.2 56.3 112.6 61.7 109.7L76.5 101.7L118.3 124.4C124.3 127.7 131.6 127.7 137.7 124.4L139.5 123.4V147.6C139.5 158.7 133.4 168.9 123.6 174.2L114.7 179H62.9C57.4 179 53 174.6 53 169.1V124.3Z"/>
-    <path filter="url(#lift)" fill="url(#mid-right)" d="M159.7 151.7L196.3 131.8C202.7 128.3 210.6 132.9 210.6 140.2V160.1C210.6 166.2 207.3 171.8 201.9 174.7L167.4 193.4C161.1 196.8 153.4 192.2 153.4 185V174.4C153.4 165.2 154.4 154.6 159.7 151.7Z"/>
+    <path d="M93 96V142C93 151.9 101.1 160 111 160H126" stroke="#22C55E" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M93 96H126" stroke="#38BDF8" stroke-width="13" stroke-linecap="round"/>
 
-    <path filter="url(#lift)" fill="url(#base-left)" d="M53 174.6C53 168.5 56.3 162.9 61.7 160L76.5 152L118.3 174.7C124.3 178 131.6 178 137.7 174.7L139.5 173.7V187.8C139.5 198.9 133.4 209.1 123.6 214.4L104 225H62.9C57.4 225 53 220.6 53 215.1V174.6Z"/>
-    <path filter="url(#lift)" fill="url(#base-right)" d="M159.7 198.3L196.3 178.4C202.7 174.9 210.6 179.5 210.6 186.8V205.4C210.6 211.5 207.3 217.1 201.9 220L167.4 238.7C161.1 242.1 153.4 237.5 153.4 230.3V221C153.4 211.8 154.4 201.2 159.7 198.3Z"/>
+    <circle cx="93" cy="96" r="18" fill="#22C55E" stroke="#F8FAFC" stroke-width="8"/>
+    <circle cx="126" cy="128" r="16" fill="#38BDF8" stroke="#0F172A" stroke-width="8"/>
+    <circle cx="126" cy="160" r="16" fill="#22C55E" stroke="#0F172A" stroke-width="8"/>
   </g>
 </svg>
