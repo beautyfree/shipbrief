@@ -11,6 +11,9 @@ Scope:
 - Summary language: use the user's preferred language from their workspace/account context; if unknown, use English.
 - Delivery: use the configured shipbrief provider. Do not call provider APIs directly.
 
+Environment:
+- Before running shipbrief, run: export PATH="$(npm config get prefix)/bin:$PATH"
+
 Commands:
 - Collector: shipbrief run --today
 - Check: shipbrief check --html "$HOME/.shipbrief/reports/YYYY-MM-DD-agent-summary.html"
@@ -50,5 +53,5 @@ Expected environment for Telegram delivery:
 - TELEGRAM_COMMIT_REPORT_CHAT_ID
 - TELEGRAM_COMMIT_REPORT_THREAD_ID
 
-If shipbrief is installed globally but not visible in the automation PATH, find the npm global prefix with npm config get prefix and prepend its bin directory to PATH inside the automation environment.
+If shipbrief is installed globally but not visible in the automation PATH, use the Environment step above. Do not hardcode a user-specific home directory in reusable prompts.
 ```

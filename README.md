@@ -53,14 +53,13 @@ Steps:
 2. Run: shipbrief init
 3. Detect my normal projects directory and put it in ~/.shipbrief/config.json roots.
 4. Run: shipbrief doctor
-5. Create a daily evening automation:
-   - run: shipbrief run --today
-   - use the canonical prompt from templates/codex-automation.md when this agent supports Codex automations
-   - read the TOON output
-   - write a concise human brief in my language
-   - group by project
-   - keep commit hashes as links when URLs exist
-   - save the final report
+5. If this is Codex, create a daily 21:00 local-time cron automation:
+   - name: Daily shipbrief commit briefing
+   - execution: local
+   - cwd: my projects root
+   - model: gpt-5.4-mini or the default available Codex automation model
+   - reasoning effort: low
+   - prompt: use templates/codex-automation.md exactly, except provider env names may be adjusted for my chosen provider.
 6. Use paths under ~/.shipbrief for generated reports; do not hardcode a user's absolute home path in reusable prompts.
 7. Do not mutate any repositories.
 ```
