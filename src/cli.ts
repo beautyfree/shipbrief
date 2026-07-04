@@ -57,6 +57,7 @@ async function run(argv: string[]): Promise<void> {
   const rootArgs = asArray(args.root);
   if (rootArgs.length) config.roots = rootArgs.map(String);
   const period = resolvePeriod({
+    today: Boolean(args.today),
     yesterday: Boolean(args.yesterday),
     date: args.date,
     since: args.since,
@@ -157,7 +158,7 @@ function envWithLaunchctl(config: ShipbriefConfig): NodeJS.ProcessEnv {
 }
 
 function help() {
-  return `shipbrief - read-only local git commit digests\n\nUsage:\n  shipbrief\n  shipbrief init [--config ~/.shipbrief/config.json]\n  shipbrief doctor\n  shipbrief collect [--yesterday|--date YYYY-MM-DD|--since X --until Y] [--root DIR] [--format toon|json|markdown] [--output file]\n  shipbrief render --input file.json [--output file.txt]\n  shipbrief send --input file.txt\n  shipbrief run [--yesterday|--date YYYY-MM-DD] [--format toon|json|markdown] [--send] [--full]\n\nDefaults:\n  output format: toon\n  roots: ~/Projects when it exists\n  config: ./shipbrief.config.json, then ~/.shipbrief/config.json\n\nSafety:\n  shipbrief only reads directories and runs git rev-parse/git config/git log. It never fetches, pulls, pushes, checks out, resets, or edits repositories.\n`;
+  return `shipbrief - read-only local git commit digests\n\nUsage:\n  shipbrief\n  shipbrief init [--config ~/.shipbrief/config.json]\n  shipbrief doctor\n  shipbrief collect [--today|--yesterday|--date YYYY-MM-DD|--since X --until Y] [--root DIR] [--format toon|json|markdown] [--output file]\n  shipbrief render --input file.json [--output file.txt]\n  shipbrief send --input file.txt\n  shipbrief run [--today|--yesterday|--date YYYY-MM-DD] [--format toon|json|markdown] [--send] [--full]\n\nDefaults:\n  output format: toon\n  roots: ~/Projects when it exists\n  config: ./shipbrief.config.json, then ~/.shipbrief/config.json\n\nSafety:\n  shipbrief only reads directories and runs git rev-parse/git config/git log. It never fetches, pulls, pushes, checks out, resets, or edits repositories.\n`;
 }
 
 function latestReport(outputDir: string): string | undefined {
@@ -179,10 +180,10 @@ function validateArgs(command: string, args: Record<string, unknown>): void {
     help: [],
     init: [],
     doctor: [],
-    collect: ['yesterday', 'date', 'since', 'until', 'label', 'root', 'output', 'format', 'json', 'full'],
+    collect: ['today', 'yesterday', 'date', 'since', 'until', 'label', 'root', 'output', 'format', 'json', 'full'],
     render: ['input', 'output'],
     send: ['input'],
-    run: ['yesterday', 'date', 'since', 'until', 'label', 'root', 'outputDir', 'send', 'json', 'format', 'full']
+    run: ['today', 'yesterday', 'date', 'since', 'until', 'label', 'root', 'outputDir', 'send', 'json', 'format', 'full']
   };
   const allowed = new Set([...(flags[command] || []), ...globals]);
   for (const key of Object.keys(args)) {

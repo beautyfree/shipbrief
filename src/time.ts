@@ -1,6 +1,7 @@
 import type { Period } from './types.js';
 
 interface PeriodOptions {
+  today?: boolean;
   yesterday?: boolean;
   date?: string | boolean | string[];
   since?: string | boolean | string[];
@@ -30,6 +31,15 @@ function startOfLocalDay(date: Date): Date {
 }
 
 export function resolvePeriod(options: PeriodOptions = {}, now = new Date()): Period {
+  if (options.today) {
+    const today = startOfLocalDay(now);
+    return {
+      since: localIso(today),
+      until: localIso(now),
+      label: `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`
+    };
+  }
+
   if (options.yesterday) {
     const today = startOfLocalDay(now);
     const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);

@@ -4,11 +4,11 @@ Use `shipbrief` for local commit follow-up reports.
 
 Commands:
 - Check setup: `shipbrief doctor`
-- Collect compact TOON: `shipbrief collect --yesterday`
-- Collect full JSON: `shipbrief collect --yesterday --format json --full --output commits.json`
+- Collect compact TOON: `shipbrief collect --today`
+- Collect full JSON: `shipbrief collect --today --format json --full --output commits.json`
 - Render text: `shipbrief render --input commits.json --output report.txt`
 - Send Telegram: `shipbrief send --input report.txt`
-- Full collection run: `shipbrief run --yesterday`
+- Full collection run: `shipbrief run --today`
 
 Safety rules:
 - Do not discover repositories outside configured `roots`.

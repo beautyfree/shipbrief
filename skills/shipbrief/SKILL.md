@@ -10,7 +10,7 @@ Use `shipbrief` when the user wants a daily commit follow-up, Telegram digest, o
 ## Commands
 
 ```bash
-npx -y shipbrief run --yesterday
+npx -y shipbrief run --today
 ```
 
 This prints compact TOON:
@@ -26,7 +26,7 @@ Write the final human report yourself before sending it anywhere. Do not send ra
 Use full JSON only when needed:
 
 ```bash
-npx -y shipbrief run --yesterday --format json --full
+npx -y shipbrief run --today --format json --full
 ```
 
 Check setup:

@@ -77,9 +77,10 @@ export function renderReportToon(report: ShipbriefReport, meta: RunMeta = {}, op
     for (const descriptionRow of descriptionRows) lines.push(`  ${row(descriptionRow)}`);
   }
 
+  const periodFlag = report.period.since.startsWith(report.generatedAt.slice(0, 10)) ? '--today' : '--yesterday';
   const help = [
-    'Run `shipbrief run --yesterday --format markdown` for a human-readable report',
-    'Run `shipbrief run --yesterday --format json --full` for complete agent data'
+    `Run \`shipbrief run ${periodFlag} --format markdown\` for a human-readable report`,
+    `Run \`shipbrief run ${periodFlag} --format json --full\` for complete agent data`
   ];
   lines.push(`help[${help.length}]:`);
   for (const item of help) lines.push(`  ${scalar(item)}`);
@@ -105,7 +106,7 @@ export function renderHomeToon({
   lines.push(`output_dir: ${scalar(collapseHome(outputDir))}`);
   if (latestReport) lines.push(`latest_report: ${scalar(collapseHome(latestReport))}`);
   lines.push('help[4]:');
-  lines.push('  Run `shipbrief run --yesterday` for compact TOON output');
+  lines.push('  Run `shipbrief run --today` for today-so-far compact TOON output');
   lines.push('  Run `shipbrief run --yesterday --format markdown` for a human report');
   lines.push('  Run `shipbrief run --yesterday --format json --full` for complete JSON');
   lines.push('  Run `shipbrief init` to create a config file');

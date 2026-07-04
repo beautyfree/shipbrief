@@ -49,29 +49,29 @@ launchctl setenv TELEGRAM_COMMIT_REPORT_THREAD_ID "87"
 ## Usage
 
 ```bash
-shipbrief run --yesterday
+shipbrief run --today
 ```
 
 Pipeline mode:
 
 ```bash
-shipbrief collect --yesterday --output commits.json
+shipbrief collect --today --output commits.json
 shipbrief render --input commits.json --output report.txt
 shipbrief send --input report.txt
 ```
 
 Recommended agent flow:
 
-1. Run `shipbrief run --yesterday` for compact TOON.
+1. Run `shipbrief run --today` for compact TOON.
 2. Ask the agent to summarize the TOON into a readable follow-up in the user's language.
 3. Send the agent-written follow-up to Telegram.
 
 Formats:
 
 ```bash
-shipbrief run --yesterday                 # TOON, default for agents
-shipbrief run --yesterday --format json   # complete machine-readable JSON
-shipbrief run --yesterday --format markdown
+shipbrief run --today                 # TOON, default for evening automation
+shipbrief run --today --format json   # complete machine-readable JSON
+shipbrief run --today --format markdown
 ```
 
 Quality metrics are included in every report:
@@ -98,7 +98,7 @@ Suggested public install paths:
 ```bash
 npx -y shipbrief init
 npx -y shipbrief doctor
-npx -y shipbrief run --yesterday
+npx -y shipbrief run --today
 ```
 
 ## Safety

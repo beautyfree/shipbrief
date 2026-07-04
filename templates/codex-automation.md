@@ -5,7 +5,7 @@ Run daily commit follow-up through `shipbrief`, then write a human follow-up.
 1. Execute:
 
 ```bash
-/Users/devall/.hermes/node/bin/shipbrief run --yesterday
+/Users/devall/.hermes/node/bin/shipbrief run --today
 ```
 
 2. Read the TOON result printed by the command.
