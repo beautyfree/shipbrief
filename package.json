@@ -4,7 +4,7 @@
   "description": "AXI-style read-only daily commit digests for local git repositories, with TOON output and provider-based delivery.",
   "type": "module",
   "bin": {
-    "shipbrief": "./bin/shipbrief.js"
+    "shipbrief": "bin/shipbrief.js"
   },
   "files": [
     "bin",
