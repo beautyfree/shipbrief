@@ -17,6 +17,7 @@ Run daily commit follow-up through `shipbrief`, then write a human follow-up.
    - each bullet is one human-readable change description with linked commit hashes in parentheses;
    - use HTML links like `<a href="commit_url">short_hash</a>` instead of printing full URLs;
    - merge related commits into one bullet when they describe one task.
+   - If adding a project detail/quality note after the bullet list, put one blank line before it.
 5. Keep Telegram messages under 4096 characters. Target 3500 characters per message, split by project sections first, and split a single project into `(part N)` quote blocks if needed.
 6. Send the final report to Telegram only after the agent summary is written.
 7. If sending failed, report the error and point to the generated text report.
