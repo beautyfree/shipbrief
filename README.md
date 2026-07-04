@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/shipbrief-mark.svg" width="132" height="132" alt="shipbrief logo">
+  <img src="./assets/shipbrief-mark.png" width="132" height="132" alt="shipbrief logo">
 </p>
 
 <h1 align="center">shipbrief</h1>

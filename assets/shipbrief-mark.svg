@@ -1,28 +1,12 @@
-<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">shipbrief logo</title>
-  <desc id="desc">Minimal git graph turning into briefing blocks.</desc>
-  <defs>
-    <filter id="disc-shadow" x="22" y="22" width="212" height="212" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#0F172A" flood-opacity="0.14"/>
-    </filter>
-    <filter id="shadow" x="27" y="31" width="202" height="199" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.18"/>
-    </filter>
-  </defs>
-
-  <circle cx="128" cy="128" r="94" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="8" filter="url(#disc-shadow)"/>
-
-  <g filter="url(#shadow)">
-    <path d="M83 62H173C182.9 62 191 70.1 191 80V176C191 185.9 182.9 194 173 194H83C73.1 194 65 185.9 65 176V80C65 70.1 73.1 62 83 62Z" fill="#0F172A"/>
-    <path d="M93 96H163" stroke="#F8FAFC" stroke-width="13" stroke-linecap="round"/>
-    <path d="M126 128H163" stroke="#F8FAFC" stroke-width="13" stroke-linecap="round"/>
-    <path d="M126 160H163" stroke="#F8FAFC" stroke-width="13" stroke-linecap="round"/>
-
-    <path d="M93 96V142C93 151.9 101.1 160 111 160H126" stroke="#22C55E" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M93 96H126" stroke="#38BDF8" stroke-width="13" stroke-linecap="round"/>
-
-    <circle cx="93" cy="96" r="18" fill="#22C55E" stroke="#F8FAFC" stroke-width="8"/>
-    <circle cx="126" cy="128" r="16" fill="#38BDF8" stroke="#0F172A" stroke-width="8"/>
-    <circle cx="126" cy="160" r="16" fill="#22C55E" stroke="#0F172A" stroke-width="8"/>
-  </g>
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="128" cy="128" r="96" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="8"/>
+  <rect x="65" y="62" width="126" height="132" rx="18" fill="#0F172A"/>
+  <path d="M93 96H163" stroke="#F8FAFC" stroke-width="13" stroke-linecap="round"/>
+  <path d="M126 128H163" stroke="#F8FAFC" stroke-width="13" stroke-linecap="round"/>
+  <path d="M126 160H163" stroke="#F8FAFC" stroke-width="13" stroke-linecap="round"/>
+  <path d="M93 96V142C93 151.9 101.1 160 111 160H126" stroke="#22C55E" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M93 96H126" stroke="#38BDF8" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="93" cy="96" r="18" fill="#22C55E" stroke="#F8FAFC" stroke-width="8"/>
+  <circle cx="126" cy="128" r="16" fill="#38BDF8" stroke="#0F172A" stroke-width="8"/>
+  <circle cx="126" cy="160" r="16" fill="#22C55E" stroke="#0F172A" stroke-width="8"/>
 </svg>
