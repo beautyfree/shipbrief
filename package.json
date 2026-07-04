@@ -1,6 +1,6 @@
 {
   "name": "shipbrief",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AXI-style read-only daily commit digests for local git repositories, with TOON output and provider-based delivery.",
   "type": "module",
   "bin": {
