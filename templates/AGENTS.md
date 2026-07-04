@@ -7,7 +7,8 @@ Commands:
 - Collect compact TOON: `shipbrief collect --today`
 - Collect full JSON: `shipbrief collect --today --format json --full --output commits.json`
 - Render text: `shipbrief render --input commits.json --output report.txt`
-- Send Telegram: `shipbrief send --input report.txt`
+- Validate HTML: `shipbrief check --html report.html`
+- Deliver HTML: `shipbrief deliver --provider telegram --html report.html`
 - Full collection run: `shipbrief run --today`
 
 Safety rules:

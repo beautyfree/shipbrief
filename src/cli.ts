@@ -7,6 +7,8 @@ import { loadConfig, writeDefaultConfig } from './config.js';
 import { resolvePeriod } from './time.js';
 import { collectCommits } from './git.js';
 import { renderDoctorToon } from './doctor.js';
+import { deliverHtml, readHtmlFile } from './deliver.js';
+import { checkHtml } from './html.js';
 import { renderText } from './render.js';
 import { sendTelegram } from './telegram.js';
 import { renderErrorToon, renderHomeToon, renderReportToon } from './toon.js';
@@ -84,6 +86,33 @@ async function run(argv: string[]): Promise<void> {
     return;
   }
 
+  if (command === 'check') {
+    const html = readHtmlFile(requiredString(args.html, '--html is required'));
+    const result = checkHtml(html);
+    process.stdout.write(`check:\n  ok: ${result.ok}\n  chars: ${result.chars}\n  chunks: ${result.chunks}\n  max_chunk: ${result.maxChunk}\n`);
+    if (result.warnings.length) {
+      process.stdout.write(`warnings[${result.warnings.length}]:\n`);
+      for (const warning of result.warnings) process.stdout.write(`  "${warning}"\n`);
+      process.exitCode = 1;
+    }
+    return;
+  }
+
+  if (command === 'deliver') {
+    const provider = requiredString(args.provider, '--provider is required') as 'telegram';
+    const html = readHtmlFile(requiredString(args.html, '--html is required'));
+    const check = checkHtml(html);
+    if (!check.ok) {
+      process.stdout.write(`error: "HTML failed validation"\nwarnings[${check.warnings.length}]:\n`);
+      for (const warning of check.warnings) process.stdout.write(`  "${warning}"\n`);
+      process.exitCode = 1;
+      return;
+    }
+    const result = await deliverHtml({ provider, html, config, env: envWithLaunchctl(config) });
+    process.stdout.write(`delivered:\n  provider: ${result.provider}\n  chunks: ${result.chunks}\n  ids: ${result.ids.join(',')}\n`);
+    return;
+  }
+
   if (command === 'run') {
     const report = collectCommits({ config, period });
     const text = renderText(report);
@@ -108,7 +137,7 @@ async function run(argv: string[]): Promise<void> {
     return;
   }
 
-  process.stdout.write(`${renderErrorToon(`unknown command ${command}`, 'valid commands: home, init, doctor, collect, render, send, run, help')}\n`);
+  process.stdout.write(`${renderErrorToon(`unknown command ${command}`, 'valid commands: home, init, doctor, collect, render, send, check, deliver, run, help')}\n`);
   process.exitCode = 2;
 }
 
@@ -127,6 +156,12 @@ function writeTextOrStdout(text: string, output: string | boolean | string[] | u
   if (Array.isArray(output)) output = output[0];
   if (!output || output === '-') process.stdout.write(text);
   else fs.writeFileSync(path.resolve(String(output)), text, 'utf8');
+}
+
+function requiredString(value: unknown, message: string): string {
+  const raw = Array.isArray(value) ? value[0] : value;
+  if (typeof raw !== 'string' || !raw) throw new Error(message);
+  return raw;
 }
 
 function resolveFormat(args: Record<string, unknown>): OutputFormat {
@@ -158,7 +193,7 @@ function envWithLaunchctl(config: ShipbriefConfig): NodeJS.ProcessEnv {
 }
 
 function help() {
-  return `shipbrief - read-only local git commit digests\n\nUsage:\n  shipbrief\n  shipbrief init [--config ~/.shipbrief/config.json]\n  shipbrief doctor\n  shipbrief collect [--today|--yesterday|--date YYYY-MM-DD|--since X --until Y] [--root DIR] [--format toon|json|markdown] [--output file]\n  shipbrief render --input file.json [--output file.txt]\n  shipbrief send --input file.txt\n  shipbrief run [--today|--yesterday|--date YYYY-MM-DD] [--format toon|json|markdown] [--send] [--full]\n\nDefaults:\n  output format: toon\n  roots: ~/Projects when it exists\n  config: ./shipbrief.config.json, then ~/.shipbrief/config.json\n\nSafety:\n  shipbrief only reads directories and runs git rev-parse/git config/git log. It never fetches, pulls, pushes, checks out, resets, or edits repositories.\n`;
+  return `shipbrief - read-only local git commit digests\n\nUsage:\n  shipbrief\n  shipbrief init [--config ~/.shipbrief/config.json]\n  shipbrief doctor\n  shipbrief collect [--today|--yesterday|--date YYYY-MM-DD|--since X --until Y] [--root DIR] [--format toon|json|markdown] [--output file]\n  shipbrief render --input file.json [--output file.txt]\n  shipbrief check --html report.html\n  shipbrief deliver --provider telegram --html report.html\n  shipbrief run [--today|--yesterday|--date YYYY-MM-DD] [--format toon|json|markdown] [--send] [--full]\n\nDefaults:\n  output format: toon\n  roots: ~/Projects when it exists\n  config: ./shipbrief.config.json, then ~/.shipbrief/config.json\n\nSafety:\n  shipbrief only reads directories and runs git rev-parse/git config/git log. It never fetches, pulls, pushes, checks out, resets, or edits repositories.\n`;
 }
 
 function latestReport(outputDir: string): string | undefined {
@@ -183,6 +218,8 @@ function validateArgs(command: string, args: Record<string, unknown>): void {
     collect: ['today', 'yesterday', 'date', 'since', 'until', 'label', 'root', 'output', 'format', 'json', 'full'],
     render: ['input', 'output'],
     send: ['input'],
+    check: ['html'],
+    deliver: ['provider', 'html'],
     run: ['today', 'yesterday', 'date', 'since', 'until', 'label', 'root', 'outputDir', 'send', 'json', 'format', 'full']
   };
   const allowed = new Set([...(flags[command] || []), ...globals]);

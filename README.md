@@ -19,7 +19,7 @@ npm install -g /Users/devall/Projects/shipbrief
 One-command agent run after publish:
 
 ```bash
-npx -y shipbrief run --yesterday
+npx -y shipbrief run --today
 ```
 
 ## Setup
@@ -57,14 +57,21 @@ Pipeline mode:
 ```bash
 shipbrief collect --today --output commits.json
 shipbrief render --input commits.json --output report.txt
-shipbrief send --input report.txt
+shipbrief check --html report.html
+shipbrief deliver --provider telegram --html report.html
 ```
 
 Recommended agent flow:
 
 1. Run `shipbrief run --today` for compact TOON.
 2. Ask the agent to summarize the TOON into a readable follow-up in the user's language.
-3. Send the agent-written follow-up to Telegram.
+3. Save the agent-written follow-up as HTML.
+4. Deliver through a provider:
+
+```bash
+shipbrief check --html report.html
+shipbrief deliver --provider telegram --html report.html
+```
 
 Formats:
 
@@ -100,6 +107,13 @@ npx -y shipbrief init
 npx -y shipbrief doctor
 npx -y shipbrief run --today
 ```
+
+Provider model:
+- `shipbrief` collects commit data.
+- Agent writes human summary HTML.
+- `shipbrief deliver --provider <name>` handles provider-specific validation, chunking, and sending.
+- Current provider: `telegram`.
+- Planned providers can reuse the same flow: `email`, `slack`, `webhook`.
 
 ## Safety
 

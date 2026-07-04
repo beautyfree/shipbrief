@@ -5,7 +5,7 @@ Run daily commit follow-up through `shipbrief`, then write a human follow-up.
 1. Execute:
 
 ```bash
-/Users/devall/.hermes/node/bin/shipbrief run --today
+npx -y shipbrief run --today
 ```
 
 2. Read the TOON result printed by the command.
@@ -18,9 +18,15 @@ Run daily commit follow-up through `shipbrief`, then write a human follow-up.
    - use HTML links like `<a href="commit_url">short_hash</a>` instead of printing full URLs;
    - merge related commits into one bullet when they describe one task.
    - If adding a project detail/quality note after the bullet list, put one blank line before it.
-5. Keep Telegram messages under 4096 characters. Target 3500 characters per message, split by project sections first, and split a single project into `(part N)` quote blocks if needed.
-6. Send the final report to Telegram only after the agent summary is written.
-7. If sending failed, report the error and point to the generated text report.
+5. Save the final HTML report to a file.
+6. Validate and deliver through Shipbrief, not direct Bot API calls:
+
+```bash
+npx -y shipbrief check --html report.html
+npx -y shipbrief deliver --provider telegram --html report.html
+```
+
+7. If sending failed, report the structured error and point to the generated HTML report.
 8. Do not run `git fetch`, `git pull`, `git push`, `git checkout`, `git reset`, or any command that changes repositories.
 
 Required environment variables:

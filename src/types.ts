@@ -12,6 +12,8 @@ export interface TelegramConfig {
   threadIdEnv?: string;
 }
 
+export type DeliveryProvider = 'telegram';
+
 export interface ShipbriefConfig {
   roots: string[];
   exclude: string[];

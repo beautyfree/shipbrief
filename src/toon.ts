@@ -43,7 +43,7 @@ export function renderReportToon(report: ShipbriefReport, meta: RunMeta = {}, op
   if (!projects.length) {
     lines.push('empty: 0 commits found for this period');
     lines.push('help[1]:');
-    lines.push('  Run `shipbrief run --yesterday --format markdown` for a human report');
+    lines.push('  Run `shipbrief run --today --format markdown` for a human report');
     return lines.join('\n');
   }
 
@@ -107,8 +107,8 @@ export function renderHomeToon({
   if (latestReport) lines.push(`latest_report: ${scalar(collapseHome(latestReport))}`);
   lines.push('help[4]:');
   lines.push('  Run `shipbrief run --today` for today-so-far compact TOON output');
-  lines.push('  Run `shipbrief run --yesterday --format markdown` for a human report');
-  lines.push('  Run `shipbrief run --yesterday --format json --full` for complete JSON');
+  lines.push('  Run `shipbrief run --today --format markdown` for a human report');
+  lines.push('  Run `shipbrief run --today --format json --full` for complete JSON');
   lines.push('  Run `shipbrief init` to create a config file');
   return lines.join('\n');
 }
