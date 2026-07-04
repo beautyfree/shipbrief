@@ -1,33 +1,39 @@
 <svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">shipbrief logo</title>
-  <desc id="desc">A luminous abstract mark for daily commit briefings.</desc>
+  <desc id="desc">Layered abstract mark for commit briefings.</desc>
   <defs>
-    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(82 64) rotate(52) scale(196)">
-      <stop stop-color="#38BDF8"/>
-      <stop offset="0.45" stop-color="#111827"/>
+    <linearGradient id="bg" x1="46" y1="32" x2="212" y2="226" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
       <stop offset="1" stop-color="#020617"/>
-    </radialGradient>
-    <linearGradient id="beam" x1="60" y1="74" x2="194" y2="190" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#A7F3D0"/>
-      <stop offset="0.48" stop-color="#38BDF8"/>
-      <stop offset="1" stop-color="#818CF8"/>
     </linearGradient>
-    <linearGradient id="panel" x1="78" y1="82" x2="174" y2="178" gradientUnits="userSpaceOnUse">
-      <stop stop-color="white"/>
-      <stop offset="1" stop-color="#CBD5E1"/>
+    <linearGradient id="top" x1="78" y1="54" x2="182" y2="114" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7DD3FC"/>
+      <stop offset="1" stop-color="#22C55E"/>
     </linearGradient>
-    <filter id="glow" x="20" y="20" width="216" height="216" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="10" result="blur"/>
-      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.22 0 0 0 0 0.75 0 0 0 0 1 0 0 0 0.65 0"/>
-      <feBlend in="SourceGraphic"/>
+    <linearGradient id="mid" x1="70" y1="98" x2="186" y2="160" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#14B8A6"/>
+    </linearGradient>
+    <linearGradient id="base" x1="64" y1="144" x2="192" y2="210" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <filter id="shadow" x="30" y="42" width="196" height="182" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#000000" flood-opacity="0.42"/>
+    </filter>
+    <filter id="lift" x="44" y="44" width="168" height="154" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#020617" flood-opacity="0.28"/>
     </filter>
   </defs>
-  <rect width="256" height="256" rx="64" fill="url(#bg)"/>
-  <path d="M54 154C86 72 154 52 206 86" stroke="#1E293B" stroke-width="18" stroke-linecap="round" opacity="0.72"/>
-  <path d="M50 154C84 80 148 60 204 92" stroke="url(#beam)" stroke-width="10" stroke-linecap="round" filter="url(#glow)"/>
-  <path d="M74 96L130 64L186 96V160L130 192L74 160V96Z" fill="url(#panel)" fill-opacity="0.96"/>
-  <path d="M74 96L130 128L186 96M130 128V192" stroke="#0F172A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
-  <circle cx="74" cy="154" r="13" fill="#A7F3D0"/>
-  <circle cx="186" cy="102" r="13" fill="#818CF8"/>
-  <circle cx="130" cy="64" r="11" fill="#38BDF8"/>
+
+  <rect width="256" height="256" rx="56" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <path d="M128 48C132.3 48 136.6 49 140.5 51.1L200.5 83.1C209.2 87.7 209.2 100.3 200.5 104.9L140.5 136.9C132.6 141.1 123.4 141.1 115.5 136.9L55.5 104.9C46.8 100.3 46.8 87.7 55.5 83.1L115.5 51.1C119.4 49 123.7 48 128 48Z" fill="url(#top)" filter="url(#lift)"/>
+    <path d="M200.5 118.2C209.2 122.8 209.2 135.4 200.5 140L140.5 172C132.6 176.2 123.4 176.2 115.5 172L55.5 140C46.8 135.4 46.8 122.8 55.5 118.2L75.4 107.6L115.5 129C123.4 133.2 132.6 133.2 140.5 129L180.6 107.6L200.5 118.2Z" fill="url(#mid)" filter="url(#lift)"/>
+    <path d="M200.5 153.3C209.2 157.9 209.2 170.5 200.5 175.1L140.5 207.1C132.6 211.3 123.4 211.3 115.5 207.1L55.5 175.1C46.8 170.5 46.8 157.9 55.5 153.3L75.4 142.7L115.5 164.1C123.4 168.3 132.6 168.3 140.5 164.1L180.6 142.7L200.5 153.3Z" fill="url(#base)" filter="url(#lift)"/>
+  </g>
+
+  <path d="M96 91H128C139 91 148 100 148 111V165" stroke="#ECFEFF" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="96" cy="91" r="13" fill="#ECFEFF"/>
+  <circle cx="148" cy="165" r="13" fill="#ECFEFF"/>
 </svg>
