@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import type { CommitInfo, Period, ShipbriefConfig, ShipbriefReport } from './types.js';
+import type { CommitInfo, Period, QualitySummary, ShipbriefConfig, ShipbriefReport } from './types.js';
 
 function git(args: string[], cwd: string): string {
   const result = spawnSync('git', args, {
@@ -109,7 +109,21 @@ export function collectCommits({ config, period }: { config: ShipbriefConfig; pe
     repoCount: repos.length,
     projectCount: projects.length,
     commitCount: projects.reduce((sum, project) => sum + project.commits.length, 0),
+    quality: summarizeQuality(projects),
     projects
+  };
+}
+
+function summarizeQuality(projects: Array<{ commits: CommitInfo[] }>): QualitySummary {
+  const commits = projects.flatMap((project) => project.commits);
+  return {
+    commitsWithoutBody: commits.filter((commit) => !commit.body.trim()).length,
+    commitsWithBody: commits.filter((commit) => commit.body.trim()).length,
+    commitsWithTestsNote: commits.filter((commit) => commit.notes.some((note) => /^Tests:/i.test(note))).length,
+    commitsWithRiskNote: commits.filter((commit) => commit.notes.some((note) => /^Risk:/i.test(note))).length,
+    commitsWithFollowUpNote: commits.filter((commit) => commit.notes.some((note) => /^Follow-up:/i.test(note))).length,
+    commitsWithCodexNote: commits.filter((commit) => commit.notes.some((note) => /^Codex:/i.test(note))).length,
+    codexMarkedCommits: commits.filter((commit) => commit.codex).length
   };
 }
 

@@ -6,6 +6,7 @@ import { parseArgs, asArray } from './args.js';
 import { loadConfig, writeDefaultConfig } from './config.js';
 import { resolvePeriod } from './time.js';
 import { collectCommits } from './git.js';
+import { renderDoctorToon } from './doctor.js';
 import { renderText } from './render.js';
 import { sendTelegram } from './telegram.js';
 import { renderErrorToon, renderHomeToon, renderReportToon } from './toon.js';
@@ -45,6 +46,11 @@ async function run(argv: string[]): Promise<void> {
   if (command === 'init') {
     const file = writeDefaultConfig(args.config);
     process.stdout.write(`config: ${file.replace(os.homedir(), '~')}\n`);
+    return;
+  }
+
+  if (command === 'doctor') {
+    process.stdout.write(`${renderDoctorToon(config, process.argv[1] || 'shipbrief')}\n`);
     return;
   }
 
@@ -101,7 +107,7 @@ async function run(argv: string[]): Promise<void> {
     return;
   }
 
-  process.stdout.write(`${renderErrorToon(`unknown command ${command}`, 'valid commands: home, init, collect, render, send, run, help')}\n`);
+  process.stdout.write(`${renderErrorToon(`unknown command ${command}`, 'valid commands: home, init, doctor, collect, render, send, run, help')}\n`);
   process.exitCode = 2;
 }
 
@@ -151,7 +157,7 @@ function envWithLaunchctl(config: ShipbriefConfig): NodeJS.ProcessEnv {
 }
 
 function help() {
-  return `shipbrief - read-only local git commit digests\n\nUsage:\n  shipbrief\n  shipbrief init [--config ~/.shipbrief/config.json]\n  shipbrief collect [--yesterday|--date YYYY-MM-DD|--since X --until Y] [--root DIR] [--format toon|json|markdown] [--output file]\n  shipbrief render --input file.json [--output file.txt]\n  shipbrief send --input file.txt\n  shipbrief run [--yesterday|--date YYYY-MM-DD] [--format toon|json|markdown] [--send] [--full]\n\nDefaults:\n  output format: toon\n  roots: ~/Projects when it exists\n  config: ./shipbrief.config.json, then ~/.shipbrief/config.json\n\nSafety:\n  shipbrief only reads directories and runs git rev-parse/git config/git log. It never fetches, pulls, pushes, checks out, resets, or edits repositories.\n`;
+  return `shipbrief - read-only local git commit digests\n\nUsage:\n  shipbrief\n  shipbrief init [--config ~/.shipbrief/config.json]\n  shipbrief doctor\n  shipbrief collect [--yesterday|--date YYYY-MM-DD|--since X --until Y] [--root DIR] [--format toon|json|markdown] [--output file]\n  shipbrief render --input file.json [--output file.txt]\n  shipbrief send --input file.txt\n  shipbrief run [--yesterday|--date YYYY-MM-DD] [--format toon|json|markdown] [--send] [--full]\n\nDefaults:\n  output format: toon\n  roots: ~/Projects when it exists\n  config: ./shipbrief.config.json, then ~/.shipbrief/config.json\n\nSafety:\n  shipbrief only reads directories and runs git rev-parse/git config/git log. It never fetches, pulls, pushes, checks out, resets, or edits repositories.\n`;
 }
 
 function latestReport(outputDir: string): string | undefined {
@@ -172,6 +178,7 @@ function validateArgs(command: string, args: Record<string, unknown>): void {
     home: [],
     help: [],
     init: [],
+    doctor: [],
     collect: ['yesterday', 'date', 'since', 'until', 'label', 'root', 'output', 'format', 'json', 'full'],
     render: ['input', 'output'],
     send: ['input'],

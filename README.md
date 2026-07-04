@@ -16,10 +16,17 @@ Until the package is published:
 npm install -g /Users/devall/Projects/shipbrief
 ```
 
+One-command agent run after publish:
+
+```bash
+npx -y shipbrief run --yesterday
+```
+
 ## Setup
 
 ```bash
 shipbrief init
+shipbrief doctor
 ```
 
 Edit `~/.shipbrief/config.json`:
@@ -67,11 +74,32 @@ shipbrief run --yesterday --format json   # complete machine-readable JSON
 shipbrief run --yesterday --format markdown
 ```
 
+Quality metrics are included in every report:
+
+```text
+quality:
+  without_body: 14
+  with_body: 1
+  tests_note: 0
+  codex_note: 3
+```
+
+Use them in the final follow-up when commit messages lack enough detail.
+
 ## Agent Templates
 
 - `templates/codex-automation.md`
 - `templates/AGENTS.md`
 - `templates/CLAUDE.md`
+- `skills/shipbrief/SKILL.md`
+
+Suggested public install paths:
+
+```bash
+npx -y shipbrief init
+npx -y shipbrief doctor
+npx -y shipbrief run --yesterday
+```
 
 ## Safety
 

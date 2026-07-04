@@ -51,6 +51,16 @@ export interface ProjectReport {
   commits: CommitInfo[];
 }
 
+export interface QualitySummary {
+  commitsWithoutBody: number;
+  commitsWithBody: number;
+  commitsWithTestsNote: number;
+  commitsWithRiskNote: number;
+  commitsWithFollowUpNote: number;
+  commitsWithCodexNote: number;
+  codexMarkedCommits: number;
+}
+
 export interface ShipbriefReport {
   generatedAt: string;
   period: Period;
@@ -58,5 +68,6 @@ export interface ShipbriefReport {
   repoCount: number;
   projectCount: number;
   commitCount: number;
+  quality: QualitySummary;
   projects: ProjectReport[];
 }

@@ -9,6 +9,9 @@ export function renderText(report: ShipbriefReport): string {
   lines.push(`Просканировано repo: ${report.repoCount}`);
   lines.push(`Проектов с активностью: ${report.projectCount}`);
   lines.push(`Коммитов: ${report.commitCount}`);
+  lines.push(`Без описания: ${report.quality.commitsWithoutBody}`);
+  lines.push(`С Tests note: ${report.quality.commitsWithTestsNote}`);
+  lines.push(`С Codex note: ${report.quality.commitsWithCodexNote}`);
   lines.push('');
 
   if (!report.projects.length) {

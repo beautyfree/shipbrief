@@ -3,6 +3,7 @@
 Use `shipbrief` for local commit follow-up reports.
 
 Commands:
+- Check setup: `shipbrief doctor`
 - Collect compact TOON: `shipbrief collect --yesterday`
 - Collect full JSON: `shipbrief collect --yesterday --format json --full --output commits.json`
 - Render text: `shipbrief render --input commits.json --output report.txt`

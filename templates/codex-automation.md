@@ -9,7 +9,7 @@ Run daily commit follow-up through `shipbrief`, then write a human follow-up.
 ```
 
 2. Read the TOON result printed by the command.
-3. Analyze `projects[]`, `commits[]`, `notes[]`, and `descriptions[]`, then write a concise human report in the user's language.
+3. Analyze `quality`, `projects[]`, `commits[]`, `notes[]`, and `descriptions[]`, then write a concise human report in the user's language.
 4. Group by project and describe what changed, not just commit subjects. Use descriptions and notes when present.
 5. Keep links to commits when `url` exists.
 6. Send the final report to Telegram only after the agent summary is written.

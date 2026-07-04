@@ -11,6 +11,7 @@
     "dist",
     "!dist/**/*.test.*",
     "templates",
+    "skills",
     "examples",
     "README.md",
     "LICENSE"

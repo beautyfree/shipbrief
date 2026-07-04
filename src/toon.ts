@@ -25,6 +25,14 @@ export function renderReportToon(report: ShipbriefReport, meta: RunMeta = {}, op
   lines.push(`  repos_scanned: ${report.repoCount}`);
   lines.push(`  active_projects: ${report.projectCount}`);
   lines.push(`  commits: ${report.commitCount}`);
+  lines.push('quality:');
+  lines.push(`  without_body: ${report.quality.commitsWithoutBody}`);
+  lines.push(`  with_body: ${report.quality.commitsWithBody}`);
+  lines.push(`  tests_note: ${report.quality.commitsWithTestsNote}`);
+  lines.push(`  risk_note: ${report.quality.commitsWithRiskNote}`);
+  lines.push(`  followup_note: ${report.quality.commitsWithFollowUpNote}`);
+  lines.push(`  codex_note: ${report.quality.commitsWithCodexNote}`);
+  lines.push(`  codex_marked: ${report.quality.codexMarkedCommits}`);
   if (meta.jsonPath || meta.textPath || meta.sendStatus) {
     lines.push('files:');
     if (meta.jsonPath) lines.push(`  json: ${scalar(collapseHome(meta.jsonPath))}`);

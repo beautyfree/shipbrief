@@ -14,6 +14,15 @@ const report: ShipbriefReport = {
   repoCount: 1,
   projectCount: 1,
   commitCount: 1,
+  quality: {
+    commitsWithoutBody: 0,
+    commitsWithBody: 1,
+    commitsWithTestsNote: 1,
+    commitsWithRiskNote: 0,
+    commitsWithFollowUpNote: 0,
+    commitsWithCodexNote: 0,
+    codexMarkedCommits: 0
+  },
   projects: [{
     name: 'demo',
     path: '/tmp/demo',

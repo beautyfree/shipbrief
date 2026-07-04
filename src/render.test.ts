@@ -10,6 +10,15 @@ test('renderText groups commits by project and keeps notes', () => {
     repoCount: 1,
     projectCount: 1,
     commitCount: 1,
+    quality: {
+      commitsWithoutBody: 0,
+      commitsWithBody: 1,
+      commitsWithTestsNote: 1,
+      commitsWithRiskNote: 0,
+      commitsWithFollowUpNote: 1,
+      commitsWithCodexNote: 0,
+      codexMarkedCommits: 1
+    },
     projects: [{
       name: 'demo',
       path: '/tmp/demo',
