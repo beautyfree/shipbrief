@@ -52,7 +52,7 @@ Use `~/.shipbrief/reports` or `$HOME/.shipbrief/reports` for reusable prompts. D
 
 Public templates should not pin package versions. Personal automations may pin `shipbrief@x.y.z` when reproducibility matters more than receiving updates automatically.
 
-If a scheduler cannot find the globally installed `shipbrief` binary, run `export PATH="$(npm config get prefix)/bin:$PATH"` inside that scheduler before shipbrief commands. Prefer this over hardcoding a user-specific home directory in reusable prompts.
+If a scheduler cannot find `shipbrief`, install it globally with `npm install -g shipbrief` and make sure the scheduler uses the normal system environment. Reusable prompts should not patch PATH or hardcode a user-specific home directory.
 
 ## Other Agents
 
